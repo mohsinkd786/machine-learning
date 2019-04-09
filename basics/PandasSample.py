@@ -1,5 +1,7 @@
 import pandas as pd
 import numpy as np
+from matplotlib import pyplot as plt 
+
 
 # empty series
 #s = pd.Series()
@@ -194,9 +196,16 @@ df = pd.DataFrame(iplTeams)
 # group by year
 groupData = df.groupby('Year')
 
-#for year,dataByYear in groupData:
-#   print(year)
-#   print(dataByYear)
+for year,dataByYear in groupData:
+   print(year)
+   print(dataByYear)
+   # create year based dataset
+   fName = str(year) + '.csv'
+   dataByYear.to_csv(fName)
+   # .dat file
+   #dataByYear.to_csv('year.dat',sep='|')
+   
+
 
 # choose specific group value
 #print(groupData.get_group(2017))
@@ -246,7 +255,7 @@ df2 = pd.DataFrame({
 # inner
 #print(pd.merge(df1, df2, on='subject_id', how='left'))
 
-#print(pd.merge(df1, df2, on='subject_id', how='right'))
+#print(pd.merge(df1, df2, on='subject_id', how='inner'))
 
 # concatenate
 
@@ -254,8 +263,8 @@ df2 = pd.DataFrame({
 
 # time delta
 # time based deviations
-s = pd.Series(pd.date_range('2012-1-1', periods=3, freq='D'))
-td = pd.Series([ pd.Timedelta(days=i) for i in range(3) ])
+s = pd.Series(pd.date_range('2012-1-1', periods=10, freq='D'))
+td = pd.Series([ pd.Timedelta(days=i) for i in range(10) ])
 df = pd.DataFrame(dict(A = s, B = td))
 
 #print(df)
@@ -287,7 +296,7 @@ np.random.randn(1000) - 1}, columns=['a', 'b', 'c'])
 df=pd.DataFrame({'a':np.random.randn(1000)+1,'b':np.random.randn(1000),'c':
 np.random.randn(1000) - 1}, columns=['a', 'b', 'c'])
 
-#df.diff.hist(bins=20)
+#df.plot.hist(bins=20)
 
 # box plot
 df = pd.DataFrame(np.random.rand(10, 5), columns=['A', 'B', 'C', 'D', 'E'])
@@ -301,6 +310,8 @@ df = pd.DataFrame(np.random.rand(50, 4), columns=['a', 'b', 'c', 'd'])
 df = pd.DataFrame(3 * np.random.rand(4), index=['a', 'b', 'c', 'd'], columns=['x'])
 #df.plot.pie(subplots=True)
 
+#plt.show()
+
 # read csv
 df=pd.read_csv("users.csv")
 #print(df)
@@ -310,5 +321,5 @@ df=pd.read_csv("users.csv")
 #print(df)
 
 #df=pd.read_csv("users.csv", skiprows=2)
-print(df)
+#print(df)
 
