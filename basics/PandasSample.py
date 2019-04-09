@@ -196,9 +196,9 @@ df = pd.DataFrame(iplTeams)
 # group by year
 groupData = df.groupby('Year')
 
-for year,dataByYear in groupData:
-   print(year)
-   print(dataByYear)
+#for year,dataByYear in groupData:
+#   print(year)
+#   print(dataByYear)
    # create year based dataset
    fName = str(year) + '.csv'
    dataByYear.to_csv(fName)
