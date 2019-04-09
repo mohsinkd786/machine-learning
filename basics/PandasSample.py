@@ -51,7 +51,6 @@ dFrame = dFrame.append(dFrame1)
 # column selection
 #print(dFrame['Name'])
 
-
 # row location
 #print(dFrame.loc['Name'])
 
@@ -61,7 +60,161 @@ dFrame = dFrame.append(dFrame1)
 # delete row
 # via index
 dFrame =dFrame.drop(0)
-print(dFrame)
+#print(dFrame)
+
+# size 
+#print(dFrame.size)
+
+# series values
+#print(dFrame.values)
+
+# top rows
+#print(dFrame.head(2))
+
+# lower bound rows
+#print(dFrame.tail(2))
+
+d = {'Name':pd.Series(['John','Jack','Steve','Diesel','Sanders','Summer','Joly']),
+   'Age':pd.Series([25,26,21,24,30,29,23]),
+   'Ranking':pd.Series([1.9,3.24,3.98,2.56,3.20,4.6,3.8])}
+
+# Create a DataFrame
+df = pd.DataFrame(d)
+#print(df)
+#print("The transpose of the data series is:")
+#print(df.T)
+
+#### View all the methods
+
+#print(dir(pd))
+#for fn1 in dir(pd):
+#    print(fn1)
+
+# statistics
+
+# sum
+#print(df.sum())
+# sum - axis : 1
+
+#print(df.sum(1))
+
+# mean
+#print(df.mean())
+
+# max
+#print(df.max())
+
+# average
+#print(df.average())
+
+# summary
+#print(df.describe())
+
+# for all the columns
+#print(df.describe(include='all'))
+
+# windowing
+df = pd.DataFrame(np.random.randn(10, 2),
+   index = pd.date_range('1/1/2000', periods=10),
+   columns = ['A', 'B'])
+
+#print(df)
+# window sizing 
+r = df.rolling(window=3,min_periods=1)
+#print(r)
+# mean
+#print(df.rolling(window=4).mean())
+
+# expanding
+#print(df.expanding(min_periods=3).mean())
+
+# aggregations
+# sum
+#print(r.aggregate(np.sum))
+
+# sum - specific fields
+#print(r['A'].aggregate(np.sum))
+
+# multiple functions
+# sum
+# mean
+#print(r[['A','B']].aggregate([np.sum,np.mean]))
+
+# different aggregations on diff columns
+#print(r.aggregate({'A' : np.sum,'B' : np.mean}))
+
+# null values
+df = pd.DataFrame(np.random.randn(5, 3), index=['a', 'c', 'e', 'f',
+'h'],columns=['one', 'two', 'three'])
+
+df = df.reindex(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'])
+#print(df)
+
+#print(df['one'].isnull())
+#print(df['one'].notnull())
+
+# assumption : NA / NaN / Null values are treated as 0
+#print(df['one'].sum())
+
+# replace NA with a custom value
+#print(df.fillna(0))
+
+# drop NA
+#print(df.dropna())
+
+# drop NA 
+# axis
+#print(df.dropna(axis=1))
+
+# replace scalars with specific values
+df = pd.DataFrame({'one':[10,20,30,40,50,2300], 'two':[1020,0,30,40,50,60]})
+
+#print(df.replace({1020:10,2300:60}))
+
+# group by
+# by key
+# by multiple keys
+# axis
+
+iplTeams = {'Team': ['Riders', 'Riders', 'Devils', 'Devils', 'Kings',
+   'kings', 'Kings', 'Kings', 'Riders', 'Royals', 'Royals', 'Riders'],
+   'Rank': [1, 2, 2, 3, 3,4 ,1 ,1,2 , 4,1,2],
+   'Year': [2014,2015,2014,2015,2014,2015,2016,2017,2016,2014,2015,2017],
+   'Points':[876,789,863,673,741,812,756,788,694,701,804,690]}
+df = pd.DataFrame(iplTeams)
+
+#print(df.groupby('Team'))
+
+#print(df.groupby('Team').groups)
+
+# group by multiple columns
+#print(df.groupby(['Team','Year']).groups)
+
+# traversing
+# group by year
+groupData = df.groupby('Year')
+
+#for year,dataByYear in groupData:
+#   print(year)
+#   print(dataByYear)
+
+# choose specific group value
+#print(groupData.get_group(2017))
 
 
+# aggregations
+#print(groupData['Points'].agg(np.mean))
+
+# size
+# group by Teams
+groupData = df.groupby('Team')
+#print(groupData.agg(np.size))
+
+# multiple aggregations
+#print(groupData['Points'].agg([np.sum, np.mean, np.std]))
+
+# condition
+# only teams who have participated
+# more than thrice
+print(df.groupby('Team').filter(lambda x: len(x) >= 3))
 
