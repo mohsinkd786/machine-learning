@@ -216,5 +216,99 @@ groupData = df.groupby('Team')
 # condition
 # only teams who have participated
 # more than thrice
-print(df.groupby('Team').filter(lambda x: len(x) >= 3))
+#print(df.groupby('Team').filter(lambda x: len(x) >= 3))
+
+# merging
+df1 = pd.DataFrame({
+   'id':[1,2,3,4,5],
+   'Name': ['John', 'James', 'Bobby', 'Andrews', 'Young'],
+   'subject_id':['eng','math','physics','chemistry','biology'],
+   'Marks_scored':[98,90,87,69,78]},
+   index=[1,2,3,4,5])
+
+df2 = pd.DataFrame({
+	'id':[1,2,3,4,5],
+   'Name': ['Brandon', 'Fowler', 'Rolex', 'Tommy', 'Johnson'],
+   'subject_id':['math','physics','chemistry','hindi','biology'],
+   'Marks_scored':[89,80,79,97,88]},
+   index=[1,2,3,4,5])
+
+#print(pd.merge(df1,df2,on='id'))
+
+# multiple keys
+#print(pd.merge(df1,df2,on=['id','subject_id']))
+
+# how 
+# joins
+# left
+# right
+# outer
+# inner
+#print(pd.merge(df1, df2, on='subject_id', how='left'))
+
+#print(pd.merge(df1, df2, on='subject_id', how='right'))
+
+# concatenate
+
+#print(pd.concat([df1,df2],keys=['x','y']))
+
+# time delta
+# time based deviations
+s = pd.Series(pd.date_range('2012-1-1', periods=3, freq='D'))
+td = pd.Series([ pd.Timedelta(days=i) for i in range(3) ])
+df = pd.DataFrame(dict(A = s, B = td))
+
+#print(df)
+# addition
+df['C']=df['A']+df['B']
+#print(df)
+
+
+# plots
+df = pd.DataFrame(np.random.randn(10,4),index=pd.date_range('1/1/2000',
+   periods=10), columns=list('ABCD'))
+
+#df.plot()
+
+# bar plot
+df = pd.DataFrame(np.random.rand(10,4),columns=['a','b','c','d'])
+#df.plot.bar()
+
+# horizontal bars
+#df.plot.barh(stacked=True)
+
+# histogram
+df = pd.DataFrame({'a':np.random.randn(1000)+1,'b':np.random.randn(1000),'c':
+np.random.randn(1000) - 1}, columns=['a', 'b', 'c'])
+
+#df.plot.hist(bins=20)
+
+# column based histograms
+df=pd.DataFrame({'a':np.random.randn(1000)+1,'b':np.random.randn(1000),'c':
+np.random.randn(1000) - 1}, columns=['a', 'b', 'c'])
+
+#df.diff.hist(bins=20)
+
+# box plot
+df = pd.DataFrame(np.random.rand(10, 5), columns=['A', 'B', 'C', 'D', 'E'])
+#df.plot.box()
+
+# scatter plot
+df = pd.DataFrame(np.random.rand(50, 4), columns=['a', 'b', 'c', 'd'])
+#df.plot.scatter(x='a', y='b')
+
+# pie chart
+df = pd.DataFrame(3 * np.random.rand(4), index=['a', 'b', 'c', 'd'], columns=['x'])
+#df.plot.pie(subplots=True)
+
+# read csv
+df=pd.read_csv("users.csv")
+#print(df)
+
+# skip header
+#df=pd.read_csv("users.csv",names=['a','b','c','d','e'],header=0)
+#print(df)
+
+#df=pd.read_csv("users.csv", skiprows=2)
+print(df)
 
