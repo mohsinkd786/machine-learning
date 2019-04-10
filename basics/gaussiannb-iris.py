@@ -71,4 +71,4 @@ classificatn_report = classification_report(labels_test,predicted)
 
 print(classificatn_report)
 
-#print(confusion_matrix(B_test, predicted))
+print(confusion_matrix(labels_test, predicted))
