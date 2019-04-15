@@ -8,31 +8,33 @@ from sklearn.metrics import classification_report,confusion_matrix
 
 cancerData = pd.read_csv('breast-cancer.csv')
 #print(cancerData)
-A = cancerData.drop(columns=['diagnosis'])
-B = pd.DataFrame ({'diagnosis':cancerData['diagnosis']})
+features = cancerData.drop(columns=['diagnosis'])
+labels = pd.DataFrame ({'diagnosis':cancerData['diagnosis']})
 
 #A = pd.DataFrame ({'radius': cancerData['radius_mean'] , 'texture': cancerData['texture_mean'] , 'perimeter' : cancerData['perimeter_mean'] , 'area' : cancerData['area_mean'] , 'smoothness' : cancerData['smoothness_mean'] ,'compactness' : cancerData['compactness_mean'],'concavity' : cancerData['concavity_mean'], 'convave' : cancerData['concave_points_mean'] ,'fractal' : cancerData['fractal_dimension_mean']})
 #B = pd.DataFrame ({'diagnosis': cancerData['diagnosis']})
 #print(A)
 #print(B)
-A_training,A_test, B_training,B_test = train_test_split(A,B,test_size=0.20,random_state = 11)
+features_training,features_test, labels_training,labels_test = train_test_split(features,labels,test_size=0.20,random_state = 11)
 
-#print(A_training)
+#print(features_training)
 #print(A_test)
 #print(B_training)
 #print(B_test)
 
-k = 5
+k = 11
 kclassifier = KNeighborsClassifier(n_neighbors = k)
-kclassifier.fit(A_training,B_training)
+model = kclassifier.fit(features_training,labels_training)
+print(model)
 
-prediction = kclassifier.predict(A_test)
+prediction = kclassifier.predict(features_test)
 
-#print(prediction)
+print(prediction)
 
 # classification report
-classificatn_report = classification_report(B_test,prediction)
-confusion_matrixx = confusion_matrix(B_test,prediction)
+#classificatn_report = classification_report(B_test,prediction)
 
-print(classificatn_report)
-print(confusion_matrixx)
+#confusion_matrixx = confusion_matrix(B_test,prediction)
+
+#print(classificatn_report)
+#print(confusion_matrixx)

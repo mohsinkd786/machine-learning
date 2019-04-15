@@ -4,7 +4,9 @@ from sklearn.tree import DecisionTreeClassifier,export_graphviz
 from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
 from subprocess import call
 
-df = pd.read_csv('titanic.csv', index_col='PassengerId')
+#df = pd.read_csv('titanic.csv', index_col='Id')
+df = pd.read_csv('carseats.csv')
+#df = df.head(6)
 print(df.head())
 
 # The root node (the first decision node)
@@ -43,18 +45,28 @@ print(df.head())
 # is used rarely makes too much of a difference
 
 # choose the specific columns
-df = df[['Pclass', 'Sex', 'Age', 'SibSp', 'Parch', 'Fare', 'Survived']]
+#df = df[['Pclass', 'Age', 'SibSp', 'Parch', 'Fare', 'Survived','Sex']]
 
 # convert sex to integer
-df['Sex'] = df['Sex'].map({'male': 0, 'female': 1})
+#df['Sex'] = df['Sex'].map({'male': 1, 'female': 2,'other': 3})
+#df = df.drop('High.1',axis=1)
+
+df['ShelveLoc'] = df['ShelveLoc'].map({'Bad': 0, 'Good': 1,'Medium': 2})
+df['US'] = df['US'].map({'Yes': 1, 'No': 0})
+df['High'] = df['High'].map({'Yes': 1, 'No': 0})
+df['High.1'] = df['High.1'].map({'Yes': 1, 'No': 0})
+df['Urban'] = df['Urban'].map({'Yes': 1, 'No': 0})
 
 # drop rows with incomplete / missing values 
-df = df.dropna()
+#df = df.dropna()
 
-X = df.drop('Survived', axis=1)
-y = df['Survived']
+X = df.drop('ShelveLoc', axis=1)
+y = df['ShelveLoc']
 
 X_train, X_test, y_train, y_test = train_test_split(X, y,test_size=0.20, random_state=11)
+print(X_train)
+print(X_test)
+print(X_train.describe())
 
 # print(X_train)
 # decision tree
@@ -67,11 +79,11 @@ a_score = accuracy_score(y_test, prediction)
 
 print(a_score)
 
-pd.DataFrame(
-    confusion_matrix(y_test, prediction),
-    columns=['Predicted Not Survival', 'Predicted Survival'],
-    index=['True Not Survival', 'True Survival']
-)
+#pd.DataFrame(
+#    confusion_matrix(y_test, prediction),
+#    columns=['Predicted Not Survival', 'Predicted Survival'],
+#    index=['True Not Survival', 'True Survival']
+#)
 
 # http://www.graphviz.org/
 # convert as a tree / node based

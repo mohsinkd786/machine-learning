@@ -4,7 +4,7 @@ import random
 import pandas as pd
 # pip3 install 
 from sklearn import datasets
-from sklearn.naive_bayes import GaussianNB
+from sklearn.naive_bayes import GaussianNB,BernoulliNB
 
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report,confusion_matrix
@@ -48,6 +48,7 @@ features_training,features_test,labels_training,labels_test = train_test_split(f
 
 # choose the classifier
 classifier = GaussianNB()
+#classifier = BernoulliNB()
 
 classifier.fit(features_training,labels_training)
 
