@@ -6,8 +6,8 @@ from subprocess import call
 
 #df = pd.read_csv('titanic.csv', index_col='Id')
 df = pd.read_csv('carseats.csv')
-#df = df.head(6)
-print(df.head())
+df = df.head(7)
+#print(df.head())
 
 # The root node (the first decision node)
 # partitions the data based on the most 
@@ -64,13 +64,27 @@ X = df.drop('ShelveLoc', axis=1)
 y = df['ShelveLoc']
 
 X_train, X_test, y_train, y_test = train_test_split(X, y,test_size=0.20, random_state=11)
+print(y_train)
+print('X Data')
 print(X_train)
-print(X_test)
-print(X_train.describe())
+print(X_train['Education'])
+print(X_train['Advertising'])
+
+
+#print(X_train['Education'])
+#print(y_train)
+
+#print(y_train)
+#print(y_train['Shelveloc'])
+
+#print(X_test)
+#print(X_train.describe())
 
 # print(X_train)
 # decision tree
-model = DecisionTreeClassifier()
+model = DecisionTreeClassifier(criterion='entropy')
+#model = DecisionTreeClassifier()
+
 treeModel = model.fit(X_train, y_train)
 
 prediction = model.predict(X_test)
